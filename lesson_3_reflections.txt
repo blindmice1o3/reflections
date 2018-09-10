@@ -12,7 +12,9 @@
 // "git status" => shows which files have changed since the last commit
 
 
-// "git add [file]" => command to add files to the staging area
+// "git add [file]" => add file to the staging area
+
+// "git reset [file]" => remove file from staging area, but will still be in your working directory
 
 
 Working directory -> Staging area -> Repository (containing commits)
@@ -21,6 +23,7 @@ Working directory -> Staging area -> Repository (containing commits)
 Q. What happens when you initialize a repository? Why do you need to do it?
 A. When you initialize a repository, you're letting Git know that you want this directory to be tracked by Git. After telling Git you're interested in keeping track of the history of this "working directory", you can add files to eventually be staged, then committed (a snapshot of all the files you care to 'save'). You'll be able to select which files you want to 'save' (doesn't have to be all the files in that directory), as well as the option of leaving a "commit message".
 
-
+Q. How is the staging area different from the working directory and the repository? What value do you think it offers?
+A. The staging area is the intermediate step that connects files from your working directory to the repository, which allows you to choose which files you want to eventually commit as a save-snapshot to your repository (it lets you choose which files to commit, and also lets you remove files if you change your mind before committing).
 
 
