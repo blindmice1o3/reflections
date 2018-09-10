@@ -1,0 +1,26 @@
+// "git init" => initializes (creates) a new Git repository (in the 
+//     directory that we're in
+
+// "ls -a" => list the contents (files/folders) in the current directory
+//     the "-a" flag will modify the list command to list ALL (hidden 
+//     files [files/folders that have a "." in front of them] as well)
+
+// initializing a repository doesn't count as a commit, you have to 
+// explicitly commit the files yourself
+
+
+// "git status" => shows which files have changed since the last commit
+
+
+// "git add [file]" => command to add files to the staging area
+
+
+Working directory -> Staging area -> Repository (containing commits)
+
+
+Q. What happens when you initialize a repository? Why do you need to do it?
+A. When you initialize a repository, you're letting Git know that you want this directory to be tracked by Git. After telling Git you're interested in keeping track of the history of this "working directory", you can add files to eventually be staged, then committed (a snapshot of all the files you care to 'save'). You'll be able to select which files you want to 'save' (doesn't have to be all the files in that directory), as well as the option of leaving a "commit message".
+
+
+
+
