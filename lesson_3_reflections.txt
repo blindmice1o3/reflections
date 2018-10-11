@@ -19,11 +19,117 @@
 
 Working directory -> Staging area -> Repository (containing commits)
 
+// "git diff" (with no arguements) => shows differences between the changes we made on our system versus what's in the staging area (which should be what the most recent commit was [if we have a clean staging area])
+
+// "git diff --staged" => the difference from what's staged and the most recent commit
+
+// "git reset --hard" => discards any changes in either the working directory or the staging area // BE VERY CAREFUL IF YOU EVER RUN THIS
+
+
+
+Making commits in a straight line (linearly) makes sense if you're just fixing bugs, adding a new feature, or updating docs... but if we want to try out a new experimental feature that we're not sure will work (yet we still want a working demo to show our friends), we should create a separate "branch"
+
+'tip of branch' -> current, last commit of a branch
+It's possible to have multiple branch labels attached to a single commit, but making a new commit will only update the branch you have checked out (and leave any others alone).
+
+
+"merging" => the process of combining two commits (from separate branches)
+
+
+"git branch" (with no arguements) => shows current branch
+"git branch [arguement]" => creates a new branch with that name
+
+"git branch easy-mode"
+// running "git branch" again shows
+    easy-mode
+   *master
+// the star next to 'master' means it's the branch that is currently checked out, so that's the one that'll update if I make a change
+
+
+"git checkout easy-mode" -> will change the branch I'm working on from the 'master' branch to the 'easy-mode' branch
+
+// running "git branch" again shows
+   *easy-mode
+    master
+
+// the star is now on the branch I want to work with/update 
+
+
+
+
+// A common workflow for multiple people working on a project collaboratively includes making a new branch for every feature or bug-fix (rather than everyone working on just the master branch - which should be the ALWAYS working, production-quality branch) (the side branches can be used for context switching... adding new features, fixing bugs, or even being bored and just wanting to experiment [while still being able to open/run the 'complete' program to show people]) 
+
+// Can update master to the tip of a new branch... or if there have been changes to master in the mean time (while you've been working on your new branch), combine it with the current master using git's merge feature
+
+// If someone wanted to add a 'coins' feature to the game (this changes the game mechanics, in the sense that instead of just objects you want to avoid, you'll now have some objects you want to avoid while other objects [coins] that you'll want to touch with your space ship)... they would create a new branch labeled 'coins'... if they want someone to play-test this new feature... the friend would "git checkout coins"... which shows
+Branch coins set up to track remote branch coins from origin.
+Switched to a new branch 'coins'
+// 'remote branch' means it was a branch that I didn't create myself
+// but once I checkout the branch, it behaviors like the branches that I created myself
+
+// If we "git log" on this branch... we'll see the most recents commits are from Sarah (adding the coins feature)
+// If we "git checkout master" and run "git log" there, we'll see many newer commits that are more recent than the commit that Sarah started working on (the ones which added color to the game)
+
+
+// git log --graph => git can help you visual the branch structure
+// "git log --graph --oneline" -> the flag --oneline will make it shorter and easier to read
+
+// also need to tell git which branches we want to visualize (add them as arguements)
+// "git log --graph --oneline master coins"
+
+
+// not all commits are shown to you, how does Git figure out which one to show you? It turns out that each commit knows about its parent. That is, it stores a reference to the commit that was checked out when it was made. If you were on a branch when you made the commit, it still just stores the commit ID of what was then the tip of the branch. Commit doesn't care anything about branch names. Only the branches themselves store anything about the position of the branches. 
+
+// "reachability" -> the concept that some commits can't be reached by others (if they're on different branches)... because they aren't linked by parents
+
+
+// we know about branches and reachability... we know everything we need to in order to understand the entire "detached HEAD" message from earlier (remember: we checkout a commit, not a branch) (remember: head just means current commit)
+// Git may be non-linear... if we branched out from master, made a commit... the head would get updated to the commit that we just made.
+
+// "git checkout -b new_branch_name" => it's equivalent to running 2 commands:
+"git branch new_branch_name"
+"git checkout new_branch_name"
+
+
+// when you use git to create a "merged commit" it creates a new commit that stores information about both of its parents
+// merging the coin branch into the master branch
+// this is very different from what we would see if we took the state of the files at the end of the coin branch, and made a commit with that on top of master. All that would do is basically set master to be the same state as coins, but that's not what we want to do. We want to have all the changes that's been made on the master branch (since the coins branch diverged from master) merged in as well.
+// when we say deleting branches, we're talking about deleting the label... the commits will still be there in the history. however, if no branches can reach the commit, deleting a branch does effectively discard its commits.
+
+
+// "git merge [master] [other_branch]" => creates a merged version of a commit (save)... has a default 'commit message' already (Merge branch 'other_branch'), and we can change it if we want, but it's usually better to leave it as it is so we can tell when we've merged branches.
+
+// "git show [commit id]" => shows what changes were introduced by a commit compared to its parent (this is useful if branches were merged... since the log lists the commits of the combined branches based on time stamp) (the parent of the commit we're interested in may not be the one immediated listed below it)
+
+// "git branch -d [branch_name] => deletes a branch (doesn't delete the commits in the branch, only deletes the label [coins])
+
+
 
 Q. What happens when you initialize a repository? Why do you need to do it?
 A. When you initialize a repository, you're letting Git know that you want this directory to be tracked by Git. After telling Git you're interested in keeping track of the history of this "working directory", you can add files to eventually be staged, then committed (a snapshot of all the files you care to 'save'). You'll be able to select which files you want to 'save' (doesn't have to be all the files in that directory), as well as the option of leaving a "commit message".
 
 Q. How is the staging area different from the working directory and the repository? What value do you think it offers?
 A. The staging area is the intermediate step that connects files from your working directory to the repository, which allows you to choose which files you want to eventually commit as a save-snapshot to your repository (it lets you choose which files to commit, and also lets you remove files if you change your mind before committing).
+
+Q. How can you use the staging area to make sure you have one commit per logical change?
+A. To use the staging area to make sure you have one commit per logical change, you can use "git diff --staged" to see the differences between the files in the staged area and the most recent commit. By comparing what you had to what you currently have, you'll be able to tell whether the changes made are one logical grouping.
+
+Q. What are some situations when branches would be helpful in keeping your history organized? How would branches help?
+A. A situation when branches would be helpful in keeping my history organized would be when I want to add a new experimental features to my project. Using branches would allow me to work on those changes/new features without worrying about destroying an already working version (the master branch).
+
+Q. How do the diagrams help you visualize the branch structure?
+A. The diagrams allow me to see how commits that have branched out from the master branch are connected (via references to their parent commit).
+
+Q. What is the result of merging two branches together? Why do we represent it in the diagram the way we do?
+A. We get a commit of all the changes of the two branches merged together, with git log showing the combined commit history listed based on time committed. We represent it in the diagram the way we do to visually show the merging of the two branches.
+
+
+Q. What are the pros and cons of Git's automatic merging vs. always doing merges manually?
+A. Automatic merging helps the developer save time from comparing two files line-by-line to determine differences, but merge conflicts may arise where Git isn't able to determine which changes to keep and discard (so it'll be up to the developer to review the specific conflicts). Manual merging is time intensive and prone to human errors.
+
+
+
+
+
 
 
