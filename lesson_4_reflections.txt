@@ -11,6 +11,8 @@ this command creates a remote, it adds a copy of our local repository to our rem
 
 by default, the branch pushed onto Github will have the same name as the branch from my local repository.
 
+"git pull origin -> like git push, git pull needs to specify the "remote" (which we named "origin"), we also need to specify the branch we want to pull (which is the master branch on the remote)
+
 
 
 Q. When would you want to use a remote repository rather than keeping all your work local?
