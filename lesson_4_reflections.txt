@@ -1,5 +1,43 @@
-Q. 
-A. 
+"remote" means a remote repository (Github), and it's something we have to associate with our local Git repository. 
+
+We can see a list of remotes ("git remote") just like we can see a list of branches ("git branch").
+
+"git remote add origin https://github.com/blindmice1o3/reflections.git"
+this command creates a remote, it adds a copy of our local repository to our remote (which is labeled as "origin") to a server (the argument with the url).
+
+"git remote -v" -> this command will list all the remotes associated with our local repository, in a verbose manner (shows you more info than regular git remote)
+
+"git push origin master" -> push the commits from my "master" branch onto the remote server labeled "origin"
+
+by default, the branch pushed onto Github will have the same name as the branch from my local repository.
 
 
 
+Q. When would you want to use a remote repository rather than keeping all your work local?
+A. We may use a remote repository rather than keeping all our work local when we work collaboratively with team members or if we're using different (multiple) computers.
+
+
+Why might you want to always pull changes manually rather than having Git
+automatically stay up-to-date with your remote repository?
+
+    Fill in your answer here
+
+Describe the differences between forks, clones, and branches.  When would you
+use one instead of another?
+
+    Fill in your answer here
+
+What is the benefit of having a copy of the last known state of the remote
+stored locally?
+
+    Fill in your answer here
+
+How would you collaborate without using Git or GitHub?  What would be easier,
+and what would be harder?
+
+    Fill in your answer here
+
+When would you want to make changes in a separate branch rather than directly in
+master?  What benefits does each approach have?
+
+    Fill in your answer here
