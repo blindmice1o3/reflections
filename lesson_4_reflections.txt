@@ -18,10 +18,10 @@ by default, the branch pushed onto Github will have the same name as the branch 
 Q. When would you want to use a remote repository rather than keeping all your work local?
 A. We may use a remote repository rather than keeping all our work local when we work collaboratively with team members or if we're using different (multiple) computers.
 
-
-
 Q. Why might you want to always pull changes manually rather than having Git automatically stay up-to-date with your remote repository?
-A.    Fill in your answer here
+A. We may not want changes from other people working on the project just yet. Always pulling the changes manually rather than having Git automatically stay up-to-date with our remote repository will give us that control.
+
+
 
 Q. Describe the differences between forks, clones, and branches.  When would you use one instead of another?
 A.    Fill in your answer here
