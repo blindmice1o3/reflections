@@ -15,16 +15,48 @@ by default, the branch pushed onto Github will have the same name as the branch 
 
 
 
+Forking a repository (e.g. repository storing cooking recipes):
+-Co-worker Larry has a repository of recipes (we like his recipes, but we still want to tweak it a little... and save it to share with our friends... but Larry doesn't want our little changes to save over his version of his recipes).
+-We can do this on GitHub. We'll clone Larry's repository to Caroline's computer. This would automatically set up Larry's repository as a "remote" called "Origin". Then we could create a new repository on GitHub on Caroline's account. She could then set up this repository as a remote, which she could call whatever she wanted, say Our-version. She can then push the changes to the remote. And then since I (Sarah) want to contribute to this repository as well, I can clone it to my computer, setting up Caroline's version as origin. Anyone looking at our repository on GitHub has no way of knowing Larry's contribution (that it was his initially), unless it was explicitly mentioned.
+-To do what we just did, GitHub has a feature called forking. This allows you to make a copy of somebody else's repository directly on the GitHub servers without pulling down the code to your local machine first. 
+-You can fork an existing repository and have it appear under your own account with just a single click. Then to make your modifications, you'd likely want to pull down the code onto your own machine, unless the files are simple enough to edit directly on GitHub.
+-Forking is a lot like cloning. In fact, a fork is just a clone that GitHub makes for you on their own machines. There are a few other side effects to forking. Like GitHub keeping track of the number of people who've made forks on your repository. And the forks all linking back to the original. It also makes it easier to suggest changes back to the original repository. 
+-So since Larry's version is already on GitHub, forking makes a lot of sense in this case. Caroline can make the fork on her account. Then we can each clone our new version. The clones don't need to know anything about the original repository. 
+
+
+Clone vs Branch vs Fork
+-branching happens within the context of one repository.
+-cloning is make a copy of the repository from the remote to your local machine (or a copy from your machine to your machine).
+-forking is only on GitHub's servers (it makes a clone for you).
+
+
+To fork the recipe repository, first I'll visit Larry's repository on GitHub. Click the fork button. Then a copy of the repository is made on my own GitHub profile. I'd like to be able to edit these recipes on my own computer rather than just on the GitHub website. So I'll also want to clone this fork. The GitHub page contains the URL I should clone, so I'll copy that URL, and paste it into my git clone command ("git clone [url]"). Then cd (change directory) into the recipes folder. You might think that I need to add the fork on GitHub as a remote so that I'll be able to push it, but actually when you clone a repository... Git automatically sets up a remote pointing to the repository you cloned from. I'll verify that by running "git remote -v". There's a remote called origin and the URL points to my repository on GitHub. Finally, since I want Sarah to be able to collaborate with me, she'll need permission to push to this repository. I'll add her as a collaborator by going to Setting, clicking Collaborators, and then adding her GitHub user name. You don't have to add Sarah to your repository, but this is where you would go to let people push onto your repository. 
+
+
+Where was your commit present:
+			 	BEFORE git push			AFTER git push
+In your local repository	YES				YES
+(visible via git log)
+On your fork 			NO				YES
+(visible via the commit history on GitHub)
+On Larry's repository		NO				NO
+(visible via the commit history on GitHub)
+
+Before you ran git push, your change should have existed locally via git log. Commits will not automatically be shared to remotes, you have to manually push your branch if you want to share changes.
+After you ran git push, your change should have existed locally and on your fork. It should not have existed on Larry's repository, which is the repository you forked. The reason you forked in the first place is because you don't have permission to change Larry's repository!
+
+
+
 Q. When would you want to use a remote repository rather than keeping all your work local?
 A. We may use a remote repository rather than keeping all our work local when we work collaboratively with team members or if we're using different (multiple) computers.
 
 Q. Why might you want to always pull changes manually rather than having Git automatically stay up-to-date with your remote repository?
 A. We may not want changes from other people working on the project just yet. Always pulling the changes manually rather than having Git automatically stay up-to-date with our remote repository will give us that control.
 
-
-
 Q. Describe the differences between forks, clones, and branches.  When would you use one instead of another?
-A.    Fill in your answer here
+A. A fork is a GitHub feature that creates a clone of a repository onto its servers (as oppose to cloning it to your local machine). After the fork of a target repository is create onto your GitHub account (which is just a clone of the target repository), you can bring that repository to your local machine by cloning it with the command "git clone [url]" where the url is the forked repository from your GitHub account. The clone is just a copy of a repository. Branches are on a smaller scope, within one repository. We create branched versions of that one repository.
+
+
 
 Q. What is the benefit of having a copy of the last known state of the remote stored locally?
 A.    Fill in your answer here
