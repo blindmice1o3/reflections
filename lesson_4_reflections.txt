@@ -45,6 +45,36 @@ On Larry's repository		NO				NO
 Before you ran git push, your change should have existed locally via git log. Commits will not automatically be shared to remotes, you have to manually push your branch if you want to share changes.
 After you ran git push, your change should have existed locally and on your fork. It should not have existed on Larry's repository, which is the repository you forked. The reason you forked in the first place is because you don't have permission to change Larry's repository!
 
+What happens if you had a local commit that hasn't been pushed to GitHub, but also have changes in GitHub (say a coworker contributed, so there's new commits) that aren't on your local machine. If we pull, would we lose our new local commit? What happens if we push when we're in this situation? What we want to happen when we pull is... we want git to keep our new local commits while intergrating the new commits we're pulling from GitHub (we want git to merge the local and remote version of the branch).
+-we'll do this by changing the chili-recipe.txt (add a new spice to Ingredient, and change Step 2 to include that ingredient), see the changes using "git diff", add the changes to the staging area "git add chili-recipe.txt, and make a commit (but don't PUSH yet). Now when we run git status I can see my branch is ahead by one commit.
+-a collaborator pushed a change to remove cumin from the chili-recipe.txt
+-Since Sarah and I both modified the same lines though, Git is going to mark this as a conflict. On the next screen, you'll see some instructions to add Sarah's changes to your own fork. Then Sarah will go over how I can resolve this conflict.
+
+Updating Local Copies of Remote Branches:
+When you have a remote set-up, Git stores local copies of all the remote branches. These will each contain the state of the remote branch as of the last time you pushed or pulled the branch. 
+
+We've already seen that when we clone a repository, you get a local branch called master, that points to the same commit as the remote one. But what you haven't seen yet is that you also get a local copy of the last known position of that branch on the remote. The name of that branch includes the name of the remote, origin, since you could have multiple remotes set up, as well as the name of the branch on the remote (in this case, master) with the two separated by a slash (origin/master).
+
+Let's consider what happen when we make a commit on the master branch locally. As usually, when you make a commit on a branch, that branch will get updated to point to the new commit. But, neither the local origin/master branch nor the actually master branch on the GitHub repository will get updated because you haven't communicated that you want to do that. However, if you push the master branch, the local origin/master branch and the remote GitHub branch will get updated with the new commit. Similarly, if this branch were to get updated on GitHub and then we pulled, both of these would get updated with the new commit.
+
+Let's go back to think about what happens when you've got different changes on each repository, with one change locally and another remote. It turns out that you can update just the local copy of the remote branch, leaving your actual local version alone, by running the command "git fetch".
+
+In cases like this, where there are potentially conflicting changes, using "git fetch" to update the local copy of the remote branch can be nice, so that you can use git log and git diff to see what changes were introduced, both on the local and remote repositories. 
+
+This way, if you're going to be offline for a while, say if you're about to get on a plane, you can update your local copy of the remote branch before you leave. And then you'll have access to any updates that have been made to the remote since you last synced up, while you were offline. But you don't have to act on combining those commits right away. 
+
+Combining changes (now that we have the commit from GitHub on our local repository, it's now possible to incorporate them into your master branch using git merge). It turns out that this is exactly what happens when you do a git pull. First, the remote branch gets fetched, updating the local copy of the remote branch. Then, that branch gets merged into the local one. 
+-Fetching updates origin/master with the contents of GitHub's master branch
+-Then origin/master is merged into master
+(git pull origin master => git fetch origin + git merge master origin/master)
+
+-Update local copies by running git fetch origin, which will update all of the local copies of every branch for the origin remote.
+-I can inspect the local copies by running "git log origin/master" or "git diff origin/master master".
+
+Merging the Changes Together:
+
+
+
 
 
 Q. When would you want to use a remote repository rather than keeping all your work local?
@@ -55,6 +85,7 @@ A. We may not want changes from other people working on the project just yet. Al
 
 Q. Describe the differences between forks, clones, and branches.  When would you use one instead of another?
 A. A fork is a GitHub feature that creates a clone of a repository onto its servers (as oppose to cloning it to your local machine). After the fork of a target repository is create onto your GitHub account (which is just a clone of the target repository), you can bring that repository to your local machine by cloning it with the command "git clone [url]" where the url is the forked repository from your GitHub account. The clone is just a copy of a repository. Branches are on a smaller scope, within one repository. We create branched versions of that one repository.
+
 
 
 
