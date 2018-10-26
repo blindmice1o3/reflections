@@ -139,7 +139,10 @@ Making a Pull Request:
 
 
 Updating a Pull Request:
--
+-I just got an email letting me know that Sarah commented on my pull request. She said that I misspelled canola. Well, I'll go take a look. "Canols" oil. Yeah that's not right. I'll go ahead and fix that. And I'll commit my fix. 
+-Now since I want this change to be visible on GitHub also, I'll push (git push origin different-oil). 
+-Pushing the branch automatically updates the pull request on GitHub. Underneath Sarah's comment about my misspelling you can see my commit fixing the typo. Also, if I look at the commits I can see there are two now. If I look at the files changed I can see the correct spelling. 
+-Now I'd like you to follow the same steps and make a pull request on your own. First, create a new branch called different-oil, then make a commit on the different-oil branch to use canola oil instead of vegetable oil like I did. If you want, you can make a typo on purpose but that's optional. Then push your different-oil branch to your fork on GitHub and create a pull request. Make sure to change the base to the master branch of your repository and not Larry's repository. If you made a typo earlier, then make another commit to fix the typo and update the pull request. Finally, paste the link to your pull request in this box. You can find the link to your pull request by viewing your repository on GitHub, scrolling over to the right, and looking at the list of pull requests. Then click on your pull requests, and copy this URL from the URL bar. Finally, make sure you don't merge your pull request yet. If you do then a later exercise won't work. 
 
 
 
@@ -155,11 +158,11 @@ A. A fork is a GitHub feature that creates a clone of a repository onto its serv
 Q. What is the benefit of having a copy of the last known state of the remote stored locally?
 A. The benefit of having a copy of the last known state of the remote stored locally is you can be offline and still be able to compare (git diff) your present working copy with the last known remote changes.
 
-
-
-
 Q.How would you collaborate without using Git or GitHub?  What would be easier, and what would be harder?
-A.    Fill in your answer here
+A. Without using Git or GitHub, I would collaborate using email with attachments of my code files (the body of the email would explain the changes I've made so my collaborators will have something like a commit message). It would be harder to have my collaborators review my changes (to double check, make comments or suggestions) before I send it off as the final version. It would also be harder to maintain different versions of my project, switching back and fourth between changed versions, and I wouldn't have a centralized system of keeping my files' versions organized. Something that would be easier would be being flexible with starting and stopping points since having logical commit (chunks of functionality) isn't required.
+
+
+
 
 Q. When would you want to make changes in a separate branch rather than directly in master?  What benefits does each approach have?
 A.    Fill in your answer here
