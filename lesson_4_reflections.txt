@@ -53,9 +53,24 @@ What happens if you had a local commit that hasn't been pushed to GitHub, but al
 Updating Local Copies of Remote Branches:
 When you have a remote set-up, Git stores local copies of all the remote branches. These will each contain the state of the remote branch as of the last time you pushed or pulled the branch. 
 
-We've already seen that when we clone a repository, you get a local branch called master, that points to the same commit as the remote one. But what you haven't seen yet is that you also get a local copy of the last known position of that branch on the remote. The name of that branch includes the name of the remote, origin, since you could have multiple remotes set up, as well as the name of the branch on the remote (in this case, master) with the two separated by a slash (origin/master).
+We've already seen that when we clone a repository, you get a local branch called master, that points to the same commit as the remote one. 
 
-Let's consider what happen when we make a commit on the master branch locally. As usually, when you make a commit on a branch, that branch will get updated to point to the new commit. But, neither the local origin/master branch nor the actually master branch on the GitHub repository will get updated because you haven't communicated that you want to do that. However, if you push the master branch, the local origin/master branch and the remote GitHub branch will get updated with the new commit. Similarly, if this branch were to get updated on GitHub and then we pulled, both of these would get updated with the new commit.
+
+***
+But what you haven't seen yet is that you also get a local copy of the last known position of that branch on the remote. 
+
+The name of that branch includes the name of the remote, origin, since you could have multiple remotes set up, as well as the name of the branch on the remote (in this case, master) with the two separated by a slash (origin/master).
+***
+
+*****
+Let's consider what happen when we make a commit on the master branch locally. As usually, when you make a commit on a branch, that branch will get updated to point to the new commit. 
+
+But, neither the local origin/master branch nor the actually master branch on the GitHub repository will get updated because you haven't communicated that you want to do that. 
+
+However, if you push the master branch, the local origin/master branch and the remote GitHub branch will get updated with the new commit. 
+
+Similarly, if this branch were to get updated on GitHub and then we pulled, both of these would get updated with the new commit.
+*****
 
 Let's go back to think about what happens when you've got different changes on each repository, with one change locally and another remote. It turns out that you can update just the local copy of the remote branch, leaving your actual local version alone, by running the command "git fetch".
 
@@ -71,9 +86,60 @@ Combining changes (now that we have the commit from GitHub on our local reposito
 -Update local copies by running git fetch origin, which will update all of the local copies of every branch for the origin remote.
 -I can inspect the local copies by running "git log origin/master" or "git diff origin/master master".
 
-Merging the Changes Together:
+Merging the Changes Together2:
+-Since I've already run git fetch, my origin/master will contain Sarah's changes, which I can verify by running git status. As expected, I see that my branch and origin/master have diverged and have one and one different commit each.
+-Now I'm ready to merge Sarah's changes into my local master. So, to do that, first I'll make sure I have the master branch checked out. And then I'll run git merge,and the two branches I want to merge are master and origin/master. 
+-Like I expected, I got a merge conflict, so I'll open the file and resolve it. 
+-So I can see here's the original version (before either of us made changes), here are my changes (with onion powder added), and here's Sarah's version (with cumin removed). I manually resolve the conflict and save the file.
+-Finally, I'll let git know the conflict is resolved by adding the chili recipe and committing. 
+-As usual, when I merge, Git creates an automatic commit message for me, this time letting me know that I've merged the remote-tracking branch 'origin/master'.
+-Since running git pull is the same as running git fetch and then git merge, I could have run git pull origin master and the same thing would have happened.
+-If I run this now, then I can see that master is already up-to-date, which makes sense.
+-Now create a merged version of your version and Sarah's changes by running either git pull or both git fetch and git merge. Then push the merged version up to GitHub. Once you're finished, run git status and paste the output in this box.
+
+Fast-Forward Merges:
+-At this point you might have some questions. You might be wondering if git pull and the same as fetching and merging, why haven't our previous pulls generated commits like this one did? The answer is: fast-forward merges.
+-This kind of merge occurs when you merge two commits, where one is ancestor of the other. That is, where one commit is reachable by the other.
+-If all merges happened the way we've been showing you so far, if you took b and tried to merge it into a (git merge a b), then you would end up with a merge commit that had both commits as a parent, and you would move a (new a). 
+-In the usual case, merge commits are generated to keep track of all the commits that played a part in getting to this stage. But in this case, the commits that played those parts are this one (b) and this one (previous a). And this commit (b) already has all the information about this one's (previous a) history. So there's no actual reason to add this extra one. So instead of adding a new commit, all we would do is update the label to point here (b) instead.
+-Hopefully, at this point the name fast-forward merge makes sense.
+-We're taking a label from the history of a branch somewhere in its ancestry, and moving that label forward to the tip of the branch. 
+-Remember, the only criteria for whether something would be a fast-forward merge is if the branch you are merging into is an ancestor of the branch that you're merging from. 
+-(opposite of fast-forward merge is merged commit???)
+
+Reflection question about benefit of having a locally stored copy of the last known state of the remote.
+
+Next, Caroline will introduce a GitHub feature called a "Pull-Request" that makes collaboration easier.
+
+Making a Pull Request:
+-Now that you've seen how to make changes public by sharing them on GitHub, I wanted to show you a work flow you can use to get feedback on your changes to a project before you update the master branch. 
+-As an example, here is the recipes repository both locally on my own computer and my fork on GitHub. 
+-If I have a change I want Sarah's feedback on, then first I'll make that change locally on a separate branch. Next, I'll push that change to my fork. Now my change is shared on GitHub, so Sarah can see it, but it's not in the master branch. That way if Sarah finds a problem with my change when she reviews it, I won't have broken master. 
+-Next, I'll use a feature of GitHub called pull requests that make it easy for Sarah to see exactly what I've changed and leave comments.
+-When we're both ready, I'll merge this change into the master branch. 
+-Right now, I want to change the cake recipe to use canola oil instead of vegetable oil, since it's healthier. 
+-First, I'll make a new branch called "different-oil" (git branch different-oil). Then I'll checkout that branch (git checkout different-oil), and go ahead and make the change. Now, I want to show Sarah the changes I've made, so I'll add them (git add cake-recipe.txt), commit them (git commit), and push them (git push origin different-oil). Note that this time I'm running git push origin different-oil to push the different-oil branch instead of master. 
+-Now that I've pushed my branch, it's possible to see it on GitHub. To see what branches exist, I can choose this drop down, and I can see that right now I'm looking at the master branch. And here's the different-oil branch that I just pushed. This list of branches is the same list I would see if I ran get branch on the repository on GitHub. So only branches that I've pushed to GitHub will show up. To see what the files look like on the different-oil branch, I can click on it, which is analogous to running git checkout. Sarah could also do this and then view the commit history to see what changes I've made. 
+-Instead though, I'm going to create a pull request for my changes. I'll go back to the main page for the repository, and I could click the compare and pull request button here since I just pushed the branch recently. But if I pushed it less recently and that button wasn't there, then I would checkout this branch, scroll down a little and click Pull Request. 
+-By default, GitHub assumes I want to merge my changes into the original repository, which is Larry's repository. But instead, I want to merge my changes into the master branch of my own fork. So I'll scroll to the right and click Edit. And now I can change the base fork to cbuckey-uda/recipes. Now I'll scroll down and to the right, and click Create pull request. 
+-Now, GitHub makes a view that shows all the commits that are present in this pull request and all the changes that have been made. If I go back up to the repository and scroll to the right, I can also see a list of all Pull Requests. So Sarah can check this list and see that I've liked to merge these changes into master. Now I'll turn you over to Sarah while she looks at my pull request.
+
+-Since I'm watching Caroline's fork of recipes repository, I got an email notifying me when she made a pull request. I can click through in this email to see the pull request on GitHub. You might be wondering why these are called pull requests. 
+-Caroline initiated this request, but she's not asking to pull anything. She's trying to merge one of her changes into master, or you might think of this as her trying to "push" into master. So why is it called a "pull request"?
+-It's because she's requesting that I pull her branch into the master branch. Another good name for this might be "merge request".
+-But "pull request" is what GitHub picked, so we'll go with that.
+-So Caroline wants me to merge her different-oil branch into the master branch. Since the master branch is the main branch, and it's what people will see when they first come to the repository, I want to make sure that it really looks good before actually doing the merge. 
+-It looks like she just changed vegetable to, oh, "canols"??? I think she meant "canola", based on the name of the pull request.
+-I don't really want to merge this in because it has a spelling error. That would probably be confusing if anybody was looking at this later. So instead of merging it now, I'm actually going to leave a comment.
+-I could put my comment here, commenting on the whole change, or I could do an inline comment here. I think I'll choose that option. 
+-At this point, I'll go back to the main pull request. If there were more commits, I could look at them here, but since there's only one, I don't need to look at anything else. 
+-If I had decided that the change was good, and ready to be pulled in right now, I could have pressed this Merge pull request button. 
+-This will only appear when the merge could go through without a conflict. So it's a nice indicator to the person reviewing the changes, as to whether or not it's really ready to go. If the change would've created a merge conflict, I would ask Caroline to merge master into her branch first, so that I could see how she resolves the conflict. That way I know that when her code finally does get added to master, there's no chance that something's going to go wrong with a bad merge. 
+-All right, at this point you should go ahead and make the change that Caroline described by creating a new branch off of master, and commiting a change that switches vegetable oil out in favor of canola. You can make a typo or other mistake on purpose so that you'll have a reason to update the pull request later. You don't have to. Go ahead and push your new branch to the fork, and then use GitHub to initiate a pull request, but make sure not to click the Merge button yet. 
 
 
+Updating a Pull Request:
+-
 
 
 
@@ -86,11 +152,11 @@ A. We may not want changes from other people working on the project just yet. Al
 Q. Describe the differences between forks, clones, and branches.  When would you use one instead of another?
 A. A fork is a GitHub feature that creates a clone of a repository onto its servers (as oppose to cloning it to your local machine). After the fork of a target repository is create onto your GitHub account (which is just a clone of the target repository), you can bring that repository to your local machine by cloning it with the command "git clone [url]" where the url is the forked repository from your GitHub account. The clone is just a copy of a repository. Branches are on a smaller scope, within one repository. We create branched versions of that one repository.
 
-
-
-
 Q. What is the benefit of having a copy of the last known state of the remote stored locally?
-A.    Fill in your answer here
+A. The benefit of having a copy of the last known state of the remote stored locally is you can be offline and still be able to compare (git diff) your present working copy with the last known remote changes.
+
+
+
 
 Q.How would you collaborate without using Git or GitHub?  What would be easier, and what would be harder?
 A.    Fill in your answer here
