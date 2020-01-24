@@ -1,36 +1,44 @@
-// FC == file change
-Git CMD (windows) - "FC game_old.js game_new.js"
+// Command Prompt (windows): "FC game_old.js game_new.js"
+"FC" => file compare
 
-// -u == add-on that makes it easier to view, can use without -u
-Git Bash (unix/mac) - "diff -u game_old.js game_new.js"
+// Git Bash (unix/mac [maybe linux]): "diff -u game_old.js game_new.js"
+"diff -u" => the equivalent to Command Prompt's FC
+    "-u" => add-on (optional flag) that makes it easier to view, can use without -u
 
 // navigate to the directory where the code is saved then use command: 
+    "git log" => will give you every commit that's ever been made
+        starting with the most recent (will have id, author, date, message)
 
-//   "git log" => will give you every commit that's ever been made
-//   starting with the most recent (will have id, author, date, message)
+    // "git diff [commit id 1] [commit id 2]": compare commits
+    "git diff" => check what changes a commit introduced; 
+        it's similar to the "FC" and "diff -u" commands we saw earlier, but instead
+        of just comparing two files, it compares two versions of a file within git
 
-//   "git diff" => check what changes a commit introduced 
-//   it's similar to "FC" or "diff" commands we saw earlier, but instead
-//   of just comparing two files... it compares two versions of a file //   within git
+    "git log --stat" => the "--stat" modifier will give us some 
+        statistics about which files have changed in each commit
 
-//   "git log --stat" => the "--stat" modifier will give us some 
-//   statistics about which files have changed in each commit
+    "git checkout [address of older commits]" => revert to older version of the file(s)
 
-//    "git checkout [addresses of older commits]"
+    "q" => stop viewing the git log output
 
-//    "q" => stop viewing the git log output
+    "git clone [url]" => creates a clone of the repository 
+        (not just a copy of most recent files, but the entire history [all versions])
 
-//    "git clone [url]" => creates a clone of the repository (not just a //    copy of most recent files, but the entire history [all versions])
+    "~" => home directory 
+    
+    "cd ~" => change directory to home directory
 
-// "~" =>  cd ~ => brings me to my home directory
-// "mv" => move files (the first argument is the file name, second argument is new name for that file, and leaving no third argument will move it to the directory I'm in)
+    "mv" => move file 
+        (the first argument is the file name, second argument is new 
+        name for that file, and leaving no third argument will move it 
+        to the present working directory)
 
 
-Q. How did viewing a diff beteen two versions help you spot the bug?
-A. It isolated the lines of code that changed (rather than having to compare thousands of lines of code if we were comparing a big program). This allows us to focus on what the user changed, which helped us to find the typo much quicker than manually searching ourself (alt-tabing between the old file and new file).
+Q. How did viewing a diff between two versions of a file help you spot the bug?
+A. It isolated the lines of code that changed (rather than having to compare thousands of lines of code if we were comparing a big program). This allows us to focus on what the user changed, which helped us to find the typo much quicker than manually searching (alt-tabing between the old file and new file).
 
-Q. How could having easy access to the entire history of a file make you a more efficient prorammer in the long term?
-A. Changes to a file made a long time ago will be difficult to remember. By having easy access to the entire history of a file, a programmer can quickly revisit older versions of the file to (1) refresh their memory on what past versions were like as well as (2) compare the differences and changes that have been made over time. 
+Q. How could having easy access to the entire history of a file make you a more efficient programmer in the long term?
+A. Changes to a file made a long time ago will be difficult to remember. By having easy access to the entire history of a file, programmers can quickly revisit older versions of the file to (1) refresh their memory on what past versions were like as well as (2) compare the differences and changes that have been made over time. 
 
 Examples of version control history used in real-world applications are:
 dropbox, google docs, wikipedia(, and also manually saving different versions of a file with different names)
