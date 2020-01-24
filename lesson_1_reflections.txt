@@ -58,11 +58,3 @@ A. Using a version control system will allow me easy access to previous versions
 
 Q. Now that you have your workspace set up, what do you want to try using Git for?
 A. I'd like to use Git to keep track of different versions of application files that I write, saving the different versions of the files as different commits, this will organize my project. The repository for my project will be made of different commits (or different saved-state versions of my projects).
-
-
-
-
-
-
-
-
