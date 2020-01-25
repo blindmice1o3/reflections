@@ -1,29 +1,32 @@
-// Command Prompt (windows): "FC game_old.js game_new.js"
-"FC" => file compare
+// Command Prompt (windows): 
+    "FC [first_file] [second_file]" => file compare
+    (e.g. "FC game_old.js game_new.js")
 
-// Git Bash (unix/mac [maybe linux]): "diff -u game_old.js game_new.js"
-"diff -u" => the equivalent to Command Prompt's FC
-    "-u" => add-on (optional flag) that makes it easier to view, can use without -u
+// Git Bash (unix/mac [maybe linux]): 
+    "diff -u [first_file] [second_file]" => the equivalent to Command Prompt's FC
+    (e.g. "diff -u game_old.js game_new.js")
+        "-u" => optional flag that makes it easier to view, can use without -u
 
 // navigate to the directory where the code is saved then use command: 
+    "git diff [commit_id_1] [commit_id_2]" => check what changes a commit 
+        introduced; it's similar to the "FC" and "diff -u" commands we saw earlier, 
+        but instead of just comparing two files, it compares two versions of a file 
+        (e.g. compares two commits) within git
+
+    "git clone [url_of_repository]" => creates a clone of the repository 
+        (not just a copy of the most recent files, but the entire history [all versions])    
+
+    "git checkout [commit_id]" => temporarily reset all files in a directory to 
+        their state at the time of a specific commit
+
     "git log" => will give you every commit that's ever been made
         starting with the most recent (will have id, author, date, message)
 
-    // "git diff [commit id 1] [commit id 2]": compare commits
-    "git diff" => check what changes a commit introduced; 
-        it's similar to the "FC" and "diff -u" commands we saw earlier, but instead
-        of just comparing two files, it compares two versions of a file within git
-
     "git log --stat" => the "--stat" modifier will give us some 
         statistics about which files have changed in each commit
-
-    "git checkout [address of older commits]" => revert to older version of the file(s)
-
-    "q" => stop viewing the git log output
-
-    "git clone [url]" => creates a clone of the repository 
-        (not just a copy of most recent files, but the entire history [all versions])
-
+    
+    "q" => stop (quit) viewing the git log output
+    
     "~" => home directory 
     
     "cd ~" => change directory to home directory
